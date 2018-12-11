@@ -154,6 +154,7 @@ export default {
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  text-align: left;
 }
 
 .sc-user-input--text {
@@ -189,7 +190,7 @@ export default {
 .sc-user-input--buttons {
   width: 100px;
   position: absolute;
-  right: 30px;
+  right: 2px;
   height: 100%;
   display: flex;
 }

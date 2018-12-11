@@ -23,11 +23,21 @@ export default {
     messageStyling: {
       type: Boolean,
       required: true
+    },
+    author: {
+      type: String,
+      required: true
+    },
+    hideAvatar: {
+      type: Boolean,
+      required: false
     }
   },
   computed: {
     messageText() {
-      const escaped = escapeGoat.escape(this.data.text)
+      var escaped = escapeGoat.escape(this.data.text)
+
+      if (this.hideAvatar && this.author) escaped = "<b>" + this.author + ":</b><br>" + escaped;
 
       return Autolinker.link(this.messageStyling ? fmt(escaped) : escaped, {
         className: 'chatLink',

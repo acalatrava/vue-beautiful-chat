@@ -1,5 +1,5 @@
 <template>
-  <div class="sc-chat-window" :class="{opened: isOpen, closed: !isOpen}">
+  <div class="sc-chat-window" :class="{opened: isOpen, closed: !isOpen, launcherHidden: hideLauncher}" :style="{zIndex: 9999}">
     <Header
       :title="title"
       :imageUrl="titleImageUrl"
@@ -19,6 +19,7 @@
       :colors="colors"
       :alwaysScrollToBottom="alwaysScrollToBottom"
       :messageStyling="messageStyling"
+      :hideAvatar="hideAvatar"
     />
     <UserInput
       v-if="!showUserList"
@@ -45,6 +46,10 @@ export default {
     UserList
   },
   props: {
+    hideLauncher: {
+      type: Boolean,
+      required: false
+    },
     showEmoji: {
       type: Boolean,
       default: false
@@ -100,7 +105,11 @@ export default {
     messageStyling: {
       type: Boolean,
       required: true
-    }
+    },
+    hideAvatar: {
+      type: Boolean,
+      required: false
+    },
   },
   data() {
     return {
@@ -141,6 +150,10 @@ export default {
   transition: 0.3s ease-in-out;
   border-radius: 10px;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.sc-chat-window.launcherHidden {
+  bottom: 20px;
 }
 
 .sc-chat-window.closed {

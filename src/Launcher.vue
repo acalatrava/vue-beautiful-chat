@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="sc-launcher" :class="{opened: isOpen}" @click.prevent="isOpen ? close() : open()" :style="{backgroundColor: colors.launcher.bg}">
+    <div class="sc-launcher" :class="{opened: isOpen}" @click.prevent="isOpen ? close() : open()" :style="{backgroundColor: colors.launcher.bg, display: hideLauncher ? 'none' : 'block'}">
       <div v-if="newMessagesCount > 0 && !isOpen" class="sc-new-messsages-count">
         {{newMessagesCount}}
       </div>
@@ -22,6 +22,8 @@
       :colors="colors"
       :alwaysScrollToBottom="alwaysScrollToBottom"
       :messageStyling="messageStyling"
+      :hideLauncher="hideLauncher"
+      :hideAvatar="hideAvatar"
     />
   </div>
 </template>
@@ -30,6 +32,14 @@ import ChatWindow from './ChatWindow.vue'
 
 export default {
   props: {
+    hideLauncher: {
+      type: Boolean,
+      default: false
+    },
+    hideAvatar: {
+      type: Boolean,
+      default: false
+    },
     showEmoji: {
       type: Boolean,
       default: false

@@ -50,6 +50,8 @@ export default {
   position: relative;
   box-sizing: border-box;
   display: flex;
+  text-align: left;
+  font-weight: bold;
 }
 
 .sc-header--img {

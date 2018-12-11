@@ -5,12 +5,13 @@
         received: message.author !== 'me' && message.type !== 'system',
         system: message.type === 'system'
       }">
-      <div v-if="message.type !== 'system'" :title="authorName" class="sc-message--avatar" :style="{
+      <div v-if="message.type !== 'system' && !hideAvatar" :title="authorName" class="sc-message--avatar" :style="{
         backgroundImage: `url(${chatImageUrl})`
       }" v-tooltip="message.author"></div>
-      <TextMessage v-if="message.type === 'text'" :data="message.data" :messageColors="determineMessageColors()" :messageStyling="messageStyling" />
+      <TextMessage v-if="message.type === 'text'" :hideAvatar="hideAvatar" :author="isGroup ? authorName : ''" :data="message.data" :messageColors="determineMessageColors()" :messageStyling="messageStyling" />
       <EmojiMessage v-else-if="message.type === 'emoji'" :data="message.data" />
       <FileMessage v-else-if="message.type === 'file'" :data="message.data" :messageColors="determineMessageColors()" />
+      <ImageMessage v-else-if="message.type === 'image'" :data="message.data" :messageColors="determineMessageColors()" />
       <TypingMessage v-else-if="message.type === 'typing'" :messageColors="determineMessageColors()" />
       <SystemMessage v-else-if="message.type === 'system'" :data="message.data" :messageColors="determineMessageColors()" />
     </div>
@@ -20,6 +21,7 @@
 <script>
 import TextMessage from './TextMessage.vue'
 import FileMessage from './FileMessage.vue'
+import ImageMessage from './ImageMessage.vue'
 import EmojiMessage from './EmojiMessage.vue'
 import TypingMessage from './TypingMessage.vue'
 import SystemMessage from './SystemMessage.vue'
@@ -34,6 +36,7 @@ export default {
   components: {
     TextMessage,
     FileMessage,
+    ImageMessage,
     EmojiMessage,
     TypingMessage,
     SystemMessage
@@ -57,6 +60,14 @@ export default {
     messageStyling: {
       type: Boolean,
       required: true
+    },
+    hideAvatar: {
+      type: Boolean,
+      required: false
+    },
+    isGroup: {
+      type: Boolean,
+      required: false
     }
   },
   methods: {
@@ -89,10 +100,12 @@ export default {
 .sc-message--content {
   width: 100%;
   display: flex;
+  text-align: left;
 }
 
 .sc-message--content.sent {
   justify-content: flex-end;
+  text-align: right;
 }
 
 .sc-message--content.system {
