@@ -178,6 +178,9 @@ export default {
     bottom: 0px;
     border-radius: 0px;
   }
+  .sc-chat-window.launcherHidden {
+    bottom: 0px;
+  }
   .sc-chat-window {
     transition: 0.1s ease-in-out;
   }
